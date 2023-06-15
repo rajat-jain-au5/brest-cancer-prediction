@@ -1,0 +1,20 @@
+model_selection:
+    model:
+      model:
+  name: LogisticRegression
+  params:
+    penalty: l2
+    C: 1.0
+    solver: lbfgs
+
+# Training configuration
+training:
+  batch_size: 32
+  epochs: 100
+  learning_rate: 0.001
+  validation_split: 0.2
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
