@@ -52,7 +52,7 @@ class PredictionPipeline:
             input_csv_file = self.request.files['file']
             pred_file_path = os.path.join(pred_file_input_dir, input_csv_file.filename)
             
-            
+            print('55',pred_file_path)
             input_csv_file.save(pred_file_path)
 
 
@@ -63,12 +63,12 @@ class PredictionPipeline:
     def predict(self, features):
             try:
                 
-                
 
                 model = self.utils.load_object(self.prediction_pipeline_config.model_file_path)
                 preprocessor = self.utils.load_object(file_path=self.prediction_pipeline_config.preprocessor_path)
-
+                
                 transformed_x = preprocessor.transform(features)
+                print('66',transformed_x)
 
                 preds = model.predict(transformed_x)
 
@@ -95,9 +95,14 @@ class PredictionPipeline:
 
             prediction_column_name : str = TARGET_COLUMN
             input_dataframe: pd.DataFrame = pd.read_csv(input_dataframe_path)
-            
-            input_dataframe =  input_dataframe.drop(columns="id") if "id" in input_dataframe.columns else input_dataframe
+            columns_to_drop = ["id"]
 
+            if all(col in input_dataframe.columns for col in columns_to_drop):
+                input_dataframe = input_dataframe.drop(columns=columns_to_drop)
+            else:
+                input_dataframe
+            # input_dataframe =  input_dataframe.drop(columns=["id","Unnamed: 32"]) if ["id","Unnamed: 32"] in input_dataframe.columns else input_dataframe
+            print('100',input_dataframe)
             predictions = self.predict(input_dataframe)
             input_dataframe[prediction_column_name] = [pred for pred in predictions]
             target_column_mapping = {0:'M', 1:'B'}

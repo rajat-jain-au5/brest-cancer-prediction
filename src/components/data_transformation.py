@@ -69,14 +69,14 @@ class DataTransformation:
             # define the steps for the preprocessor pipeline
             imputer_step = ('imputer', SimpleImputer(strategy='constant', fill_value=0))
             scaler_step = ('scaler', RobustScaler())
-
+            print('72',imputer_step,scaler_step)
             preprocessor = Pipeline(
                 steps=[
                 imputer_step,
                 scaler_step
                 ]
             )
-            
+            print('79',preprocessor)
             return preprocessor
 
         except Exception as e:
@@ -106,8 +106,7 @@ class DataTransformation:
             
             
             X = dataframe.drop(columns= TARGET_COLUMN)
-            y = np.where(dataframe[TARGET_COLUMN]==-1,0, 1)  #replacing the -1 with 0 for model training
-            
+            y = np.where(dataframe[TARGET_COLUMN]=='M',0, 1)  #replacing the -1 with 0 for model training
             
             X_train, X_test, y_train, y_test = train_test_split(X,y, test_size = 0.2 )
 

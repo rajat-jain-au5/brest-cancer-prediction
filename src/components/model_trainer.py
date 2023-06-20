@@ -112,10 +112,10 @@ class ModelTrainer:
 
             model_param_grid = self.utils.read_yaml_file(self.model_trainer_config.model_config_file_path)["model_selection"]["model"][best_model_name]["search_param_grid"]
 
-
+            print('115',model_param_grid)
             grid_search = GridSearchCV(
                 best_model_object, param_grid=model_param_grid, cv=5, n_jobs=-1, verbose=1 )
-            
+            print('118',grid_search.fit(X_train, y_train))
             grid_search.fit(X_train, y_train)
 
             best_params = grid_search.best_params_

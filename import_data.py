@@ -9,7 +9,7 @@ client = MongoClient(uri)
 # read data as dataframe
 DATABASE_NAME='Brest_cancer'
 COLLECTION_NAME='data'
-df=pd.read_csv(r"/home/admin1/Desktop/search/cancer-prediction/src/notebook/data.csv")
+df=pd.read_csv(r"/home/admin1/Desktop/search/cancer-prediction/notebooks/data.csv")
 df=df.drop('id',axis=1)
 
 # convert data to json
